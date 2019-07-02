@@ -1,28 +1,30 @@
-Better to use a unix/linux system to not deal with some Windows issues specially when using Celery (you need eventlet), and when using lib-magic (you'll need lib-magic-bin) and you'll have to respect the specified version so as not to face troubles while running the app.
-Install:
-Redis servier 3.2.1 
+1. Python version : 3.6
+
+2. Install :
+Redis Server 3.2.1 
 Celery 4.2.1 
-Django 
+Django
 
-To start the app first migrate models to database (if you didn't): 
-makemigrations
-migrate
+3. To fix issues with the name "async" which is a keyword in Python 3 :
+Rename "C:\Users\myusername\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\celery\backends\async.py" to "C:\Users\myusername\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\celery\backends\asynchronous.py"
+Open redis.py and change every line that has the keyword "async" to "asynchronous".
 
+4. To start the app first migrate models to database (if you didn't) (APP_NAME = WS_VulnS) : 
+python APP_NAME makemigrations
+python APP_NAME migrate
 
-Start Django server:
-
+5. Start Django Server :
 python manage.py runserver
 
-Start Redis Server.
+6. Start Redis Server.
 
-
-Run these commands in Redis-cli:
-
-CONFIG SET dir "C:/Users/INSPIRON15/Documents/write_redis"
+7. Run these commands in Redis-cli :
+CONFIG SET stop-writes-on-bgsave-error no
+CONFIG SET dir "C:/Path/To/A/RANDOM/DIRECTORY"
 CONFIG SET dbfilename temp.rdb
-BGSAVE 
+BGSAVE
 
-Run Celery :
-celery -A WS_VulnS worker -P eventlet -c 1000
+8. Run Celery (APP_NAME = WS_VulnS)
+celery -A APP_NAME worker -c 1000
 
-(if linux: run this command without eventlet)
+(If Windows : Run this command with -P eventlet)
