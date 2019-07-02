@@ -1,0 +1,25 @@
+<h4>{{ soapwebservice.name }}</h4>
+<br>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text bg-white">{{ soapwebservice.name }}</span>
+    </div>
+    <input type="text" class="form-control" value="{{ soapwebservice.address }}" readonly>
+</div>
+<br>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Informations</h5>
+        <p class="card-text">
+            {% if soapwebservice.documentation %}
+                {{ soapwebservice.documentation }}
+            {% else %}
+                Aucune description n'est disponible.
+            {% endif %}
+        </p>
+    </div>
+    <br>
+    <div style="text-align: right; padding: 0 20px 20px 0">
+        <a href="{{ soapwebservice.address }}" class="btn btn-primary">Accéder au service</a>
+    </div>
+</div>

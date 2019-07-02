@@ -1,0 +1,89 @@
+{% extends 'WebService/base_app_dark.html' %}
+
+{% block title %}Explorateur REST{% endblock %}
+
+{% block staticfiles %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'SOAP/libraries/metronic_treeview/css/jquery_jstree.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'SOAP/libraries/metronic_treeview/css/metronic_simple_line_icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'SOAP/css/treeview.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'REST/css/display_info.css' %}">
+    <script type="text/javascript" src="{% static 'SOAP/libraries/metronic_treeview/js/jquery_jstree.js' %}"></script>
+    <script type="text/javascript" src="{% static 'REST/js/treeview.js' %}"></script>
+    {% block js_files %}{% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 bg-white">
+                <div id="swagger-explorer-tree">
+                    <ul>
+                        <li data-type="rest-web-service" id="ws-{{ restwebservice.id }}" data-jstree='{"opened":true}'>
+                            {{ restwebservice.name }}
+                            <ul>
+                                {% for path in restwebservice.path_set.all %}
+                                    <li data-type="path" id="path-{{ path.id}}">
+                                        {{ path.name }}
+                                        <ul>
+                                            {% for method in path.method_set.all %}
+                                                <li data-type="method" id="method-{{ method.id }}">
+                                                    {{ method.name }}
+                                                    <ul>
+                                                        {%  if method.parameters %}
+                                                            <li>
+                                                                Paramètres
+                                                                <ul>
+                                                                    {% for parameter in method.parameters %}
+                                                                        <li>{{ parameter.name }} : {{ parameter.type }}</li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </li>
+                                                        {% endif %}
+                                                        {% if method.input_types %}
+                                                            <li>
+                                                                Types d'entrée
+                                                                <ul>
+                                                                    {% for entree in method.input_types %}
+                                                                        <li>{{ entree }}</li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </li>
+                                                        {% endif %}
+                                                        {%  if method.swaggerresponse_set.all %}
+                                                            <li>
+                                                                Réponses
+                                                                <ul>
+                                                                    {% for response in method.swaggerresponse_set.all %}
+                                                                        <li>{{ response.http_code }} </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </li>
+                                                        {% endif %}
+                                                        {% if method.output_types %}
+                                                            <li>
+                                                                Types de sortie
+                                                                <ul>
+                                                                    {% for sortie in method.output_types %}
+                                                                        <li>{{ sortie }}</li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </li>
+                                                        {% endif %}
+                                                    </ul>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-7 bg-white" id="swagger-info">
+                {% include 'REST/rest_web_service_info.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

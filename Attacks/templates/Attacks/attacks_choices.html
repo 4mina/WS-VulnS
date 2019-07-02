@@ -1,0 +1,24 @@
+{% extends 'WebService/base_app_index_dark.html' %}
+{% load static %}
+{% block title %}Choix des attaques{% endblock %}
+{% block staticfiles %}
+    <script type="text/javascript" src="{% static 'Attacks/js/detect_changed_forms.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'Attacks/css/display_attack.css' %}">
+    <style>
+        body
+        {
+            background-color: #f2f3f8;
+        }
+        .page-content #content {
+            background-color: white;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <form role="form" action="" method="post">
+        <legend>Choix des attaques à tester</legend>
+        <p>Choisissez les attaques que vous voulez tester avec les paramètres de vos choix.</p>
+        {% include 'Attacks/attacks_form_template.html' %}
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </form>
+{% endblock %}

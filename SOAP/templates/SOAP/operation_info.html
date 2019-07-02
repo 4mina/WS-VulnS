@@ -1,0 +1,186 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'SOAP/css/operation_info.css' %}">
+
+{% load tags_extra %}
+
+<h4>{{ operation.name }}</h4>
+<br>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text bg-white">{{ operation.endpoint.name }}</span>
+    </div>
+    <input type="text" class="form-control" value="{{ operation.endpoint.url }}" readonly>
+</div>
+<br>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Informations</h5>
+        <p class="card-text">
+            {% if operation.documentation %}
+                {{ operation.documentation }}
+            {% else %}
+                Aucune description n'est disponible.
+            {% endif %}
+        </p>
+        <div class="accordion" id="info-group">
+            <div class="card">
+                <div class="card-header" id="inputs-header">
+                    <h2>
+                        <button class="btn btn-link text-primary collapsed" type="button" data-toggle="collapse" data-target="#inputs-body" aria-expanded="false" aria-controls="inputs-body">
+                            <i class="fa" aria-hidden="true"></i>
+                            <span><strong>Paramètres d'entrée</strong></span>
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="inputs-body" class="collapse" aria-labelledby="inputs-header" data-parent="#info-group">
+                    <div class="card-body">
+                        {% if operation.parameters.input %}
+                            <table id="inputs-table" class="table">
+                                <thead>
+                                <tr class="table-primary">
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Optionnel</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for name, info in operation.parameters.input.items %}
+                                    <tr>
+                                        <td class="align-middle">{{ name }}</td>
+                                        {% if info.type.Enumeration %}
+                                            <td class="align-middle">Enumeration</td>
+                                        {% elif info.type.Complex %}
+                                            <td class="align-middle">
+                                                {% with items=info.type.Complex|parameters_to_json %}
+                                                    {{ items|truncatewords:12 }}
+                                                    {% if items|wordcount > 12 %}
+                                                        <br>
+                                                        <a class="btn btn-link text-success font-weight-bold" data-toggle="modal" data-target="#input-details-complex-{{ forloop.counter }}">
+                                                            Plus de détails
+                                                        </a>
+                                                        <div class="modal fade" id="input-details-complex-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-body">
+                                                                        <pre>{{ items }}</pre>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endwith %}
+                                            </td>
+                                        {% else %}
+                                            <td class="align-middle">{{ info.type }}</td>
+                                        {% endif %}
+                                        {% if info.optional == 'False' %}
+                                            <td class="align-middle">
+                                                Non
+                                            </td>
+                                        {% elif info.optional == 'True' %}
+                                            <td class="align-middle">
+                                                Oui
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+
+                            </table>
+                        {% else %}
+                            Aucun paramètre en entrée.
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="outputs-header">
+                    <h2>
+                        <button class="btn btn-link text-primary collapsed" type="button" data-toggle="collapse" data-target="#outputs-body" aria-expanded="false" aria-controls="outputs-body">
+                            <i class="fa" aria-hidden="true"></i>
+                            <span><strong>Paramètres de sortie</strong></span>
+                        </button>
+                    </h2>
+                </div>
+                <div id="outputs-body" class="collapse" aria-labelledby="outputs-header" data-parent="#info-group">
+                    <div class="card-body">
+                        {% if operation.parameters.output %}
+                            <table id="outputs-table" class="table">
+                                <thead>
+                                <tr class="table-primary">
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Type</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for name, info in operation.parameters.output.items %}
+                                    <tr>
+                                        <td class="align-middle">{{ name }}</td>
+                                        {% if info.type.Enumeration %}
+                                            <td class="align-middle">
+                                                Enumeration :
+                                                {% with items=info.type.Enumeration %}
+                                                    {{ items|truncatewords:12 }}
+                                                    {% if items|wordcount > 12 %}
+                                                        <br>
+                                                        <a class="btn btn-link text-success font-weight-bold" data-toggle="modal" data-target="#input-details-enum-{{ forloop.counter }}">
+                                                            Plus de détails
+                                                        </a>
+                                                        <div class="modal fade" id="input-details-enum-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-body">
+                                                                        <pre>{{ items }}</pre>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endwith %}
+                                            </td>
+                                        {% elif info.type.Complex %}
+                                            <td class="align-middle">
+                                                {% with items=info.type.Complex|parameters_to_json %}
+                                                    {{ items|truncatewords:12 }}
+                                                    {% if items|wordcount > 12 %}
+                                                        <br>
+                                                        <a class="btn btn-link text-success font-weight-bold" data-toggle="modal" data-target="#input-details-complex-{{ forloop.counter }}">
+                                                            Plus de détails
+                                                        </a>
+                                                        <div class="modal fade" id="input-details-complex-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-body">
+                                                                        <pre>{{ items }}</pre>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endwith %}
+                                            </td>
+                                        {% else %}
+                                            <td class="align-middle">{{ info.type }}</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            Aucun paramètre en sortie.
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <form action="operation_info/{{ operation.id }}/" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="operation_id" value="{{ operation.id }}" />
+                <button type="submit" class="btn btn-primary float-right">
+                    Tester
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

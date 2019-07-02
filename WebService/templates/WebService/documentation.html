@@ -1,0 +1,114 @@
+{% extends 'WebService/base_app_dark.html' %}
+{% block title %}Documentation{% endblock %}
+{% load static %}
+{% block staticfiles %}
+    <style>
+        #screenshots {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 25px;
+            padding-top: 25px;
+        }
+        .scenario {
+            width : 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        #scenario-list {
+            padding-left: 0px;
+        }
+        .bordered-image {
+            border: 1px solid black;
+        }
+    </style>
+{% endblock %}
+{% block documentation_is_active %}active{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="card col-md-12">
+            <div class="card-body">
+                <p align="justify">
+                    <strong>WS-VulnS</strong> est muni d’une interface graphique facilitant l’utilisation de l’outil alliant convivialité
+                    et simplicité mais il est aussi à noter que le but de notre outil est la détection de vulnérabilités dans les Web Services
+                    avant leur déploiement, on suppose donc que notre produit sera utilisé par des personnes expérimentées tel qu’un administrateur
+                    qui aura toutes les compétences nécessaires pour comprendre et analyser les résultats obtenus. De plus, il sera capable de configurer
+                    l’outil selon les résultats voulus, c’est pour cela que nous avons étendu la version graphique à une autre version en ligne de
+                    commande, plus avancée, permettant à l’utilisateur d’effectuer des tests plus profonds et surtout personnalisés dans le sens où
+                    il peut lui-même fixer les différents paramètres intervenant dans la détection des attaques sélectionnées tels que le choix des
+                    algorithmes de Clustering parmi ceux proposés, etc.
+                    <br><br>
+                    Nous présentons sous forme de captures d’écran un cas d’utilisation de WS-VulnS. L’utilisateur va choisir un Web Service de
+                    type SOAP, il va ensuite effectuer quelques tests fonctionnels sur ce dernier et passer aux tests de vulnérabilités en
+                    choississant l’opération et les attaques à tester, ces dernières seront configurées par l’utilisateur. Enfin, après avoir
+                    lancé la détection, il récupérera les résultats grâce à la fonctionnalité de génération de rapport.
+                </p>
+                <div class="scenario">
+                    <ol id="scenario-list">
+                        <li>
+                            Choix du Web Service et lancement des tests fonctionnels :
+                            <img id="screenshots" src="{% static 'WebService/images/1.PNG' %}" width="800" alt="Choix du Web Service et lancement des tests fonctionnels">
+                            <img id="screenshots" src="{% static 'WebService/images/2.PNG' %}" width="800" alt="Tests fonctionnels sur l'opération choisie">
+                            <img id="screenshots" src="{% static 'WebService/images/3.PNG' %}" width="800" alt="Résultat des tests fonctionnels sur l'opération choisie">
+                        </li>
+                        <li>
+                            Choix de l’opération et des attaques à tester :
+                            <img id="screenshots" src="{% static 'WebService/images/4.PNG' %}" width="800" alt="Choix de l'opération à tester">
+                            <img id="screenshots" src="{% static 'WebService/images/5.PNG' %}" width="800" alt="Choix de/des attaque(s) à tester">
+                        </li>
+                        <li>
+                            Lancement de la détection et récupération du rapport de tests :
+                            <br>
+                            <p align="justify">
+                                Etant donné que la détection des injections se fait en deux phases, nous avons choisi de représenter le déroulement de chacune d’entre elles par
+                                une barre de progression afin de pouvoir visualiser les résultats des deux étapes séparément. Les deux rapports indiqués sur les deux barres de
+                                progression correspondent au « nombre d’attaques réussies / nombre d’attaques envoyées ».
+                            </p>
+                            <img id="screenshots" src="{% static 'WebService/images/6.PNG' %}" width="800" alt="Détection de vulnérabilités">
+                            <img id="screenshots" src="{% static 'WebService/images/7.PNG' %}" width="800" alt="Rapport de détection de vulnérabilités-1">
+                            <img id="screenshots" src="{% static 'WebService/images/8.PNG' %}" width="800" alt="Rapport de détection de vulnérabilités-2">
+                            <p align="justify">
+                                A noter que l’utilisateur a également la possibilité de télécharger un fichier log contenant toutes les requêtes envoyées et les réponses
+                                retournées lors des tests effectués dans le cas où il souhaite faire une analyse manuelle, comme nous pouvons le voir dans la figure suivante :
+                            </p>
+                            <img id="screenshots" class="bordered-image" src="{% static 'WebService/images/9.PNG' %}" width="800" alt="Rapport">
+                        </li>
+                    </ol>
+                </div>
+                <div class="scenario">
+                    <p align="justify">
+                        Dans le cas d’un utilisateur plus expérimenté voulant pousser encore plus les tests sur le Web Service en question,
+                        celui-ci peut utiliser la version avancée de WS-VulnS en ligne de commande, permettant de configurer de manière très
+                        flexible la détection de vulnérabilités à travers un fichier de configuration très simple à modifier selon les choix de
+                        l’utilisateur.
+                    </p>
+                    <img id="screenshots" class="bordered-image" src="{% static 'WebService/images/10.PNG' %}" width="800" alt="Configuration par défaut">
+                    <br>
+                    <p align="justify">
+                        Le fichier de configuration est composé de cinq sections, une première section contenant des valeurs par défaut données à
+                        certains paramètres dans le cas où ces derniers ne sont pas définis par l’utilisateur. Les quatre autres sections contiennent
+                        les paramètres de configuration regroupant le choix du type de Web Service ainsi que l’opération à tester, le choix des attaques à
+                        tester ainsi que le choix des valeurs des variables intervenant dans la détection du DoS et la détection des injections. Des directives
+                        sont données à l’utilisateur afin de l’orienter dans la modification du fichier de configuration.
+                    </p>
+                    <img id="screenshots" class="bordered-image" src="{% static 'WebService/images/11.PNG' %}" width="800" alt="Choix de l'opération à tester">
+                    <br>
+                    <img id="screenshots" class="bordered-image" src="{% static 'WebService/images/12.PNG' %}" width="800" alt="Choix des attaques à tester">
+                    <br>
+                    <img id="screenshots" class="bordered-image" src="{% static 'WebService/images/13.PNG' %}" width="800" alt="Configuration de la détection du DoS">
+                    <br>
+                    <img id="screenshots" class="bordered-image" src="{% static 'WebService/images/14.PNG' %}" width="800" alt="Configuration de la détection des injections">
+                    <br>
+                    <p align="justify">
+                        Une fois la configuration sauvegardée, l’utilisateur n’a plus qu’à lancer le script de détection en ligne de commande comme suit :
+                    </p>
+                    <img id="screenshots" class="bordered-image" src="{% static 'WebService/images/15.PNG' %}" width="800" alt="Lancement du script" style="padding:0px">
+                    <br>
+                    <p align="justify">
+                        Une fois l’exécution terminée, des fichiers logs catégorisés par type d’attaque, semblabes à celui de la précédente, seront sauvegardés dans un dossier accessible à l’utilisateur.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock%}

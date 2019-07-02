@@ -1,0 +1,37 @@
+{% extends 'WebService/base_app_dark.html' %}
+
+{% block title %}Résultats des tests fonctionnels{% endblock %}
+
+{% block staticfiles %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'SOAP/libraries/code_mirror/css/codemirror.css' %}">
+    <script type="text/javascript" src="{% static 'SOAP/js/soap_client.js' %}"></script>
+    <script type="text/javascript" src="{% static 'SOAP/libraries/code_mirror/js/codemirror.js' %}"></script>
+    <script type="text/javascript" src="{% static 'SOAP/libraries/code_mirror/js/javascript.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="form-row">
+            <div class="card col-md-12">
+                <div class="card-body">
+                    <h5 class="card-title">Requête envoyée</h5>
+                    {{ response.request.data}}
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="form-row">
+            <div class="card col-md-12">
+                <div class="card-body">
+                    <h5 class="card-title">Réponse retournée</h5>
+                    {% if response.content|length == 0 %}
+                        Réponse vide
+                    {% else %}
+                        {{ response.content }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

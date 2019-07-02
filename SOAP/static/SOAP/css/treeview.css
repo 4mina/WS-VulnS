@@ -1,0 +1,16 @@
+.container .row {
+    box-shadow: 0px 1px 15px 1px rgba(69,65,78,0.1);
+}
+
+.container .row .col-md-5 {
+    border-right: 1px solid silver;
+}
+
+#wsdl-info {
+    padding: 50px;
+    color: #2b4c6d;
+}
+
+#wsdl-info input:focus {
+    outline: none;
+}

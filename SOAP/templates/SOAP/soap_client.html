@@ -1,0 +1,38 @@
+{% extends 'WebService/base_app_dark.html' %}
+
+{% block title %}Client SOAP - Tests fonctionnels{% endblock %}
+
+{% block staticfiles %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'SOAP/css/soap_client.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'SOAP/libraries/code_mirror/css/codemirror.css' %}">
+    <script type="text/javascript" src="{% static 'SOAP/js/soap_client.js' %}"></script>
+    <script type="text/javascript" src="{% static 'SOAP/libraries/code_mirror/js/codemirror.js' %}"></script>
+    <script type="text/javascript" src="{% static 'SOAP/libraries/code_mirror/js/javascript.js' %}"></script>
+    <script type="text/javascript" src="{% static 'SOAP/js/operation_request.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="form-row">
+            <div class="col-md-6">
+                <select id="endpoints-group" class="form-control mb-2 mr-sm-2">
+                    <option value="" disabled selected>Sélectionner un port</option>
+                    {% for endpoint in data.endpoint_set.all %}
+                        <option value="{{ endpoint.pk }}">{{ endpoint.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <select id="operations-group" class="form-control mb-2 mr-sm-2">
+                    <option value="" disabled selected>Sélectionner une opération</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="operation-request">
+
+        </div>
+
+    </div>
+{% endblock %}

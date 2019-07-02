@@ -1,0 +1,21 @@
+{% extends 'WebService/base_app_index_dark.html' %}
+{% block title %}WS-VulnS{% endblock %}
+{% block staticfiles %}
+    <style>
+        body
+        {
+            background-color: #f2f3f8;
+        }
+        .page-content #content {
+            background-color: white;
+        }
+    </style>
+{% endblock %}
+{% block home_is_active %}active{% endblock %}
+{% block body %}
+    <form role="form" action="" method="post" enctype="multipart/form-data">
+        <legend>Description du Web Service à tester</legend>
+        {% include 'WebService/form-template.html' %}
+        <button type="submit" class="btn btn-primary">Charger</button>
+    </form>
+{% endblock %}

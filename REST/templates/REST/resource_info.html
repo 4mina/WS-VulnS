@@ -1,0 +1,27 @@
+{% load static %}
+{% block js_files %}<script type="text/javascript" src="{% static 'REST/js/resource_info.js' %}"></script>{% endblock %}
+<h3 class="card-title">{{ path.name }}</h3>
+<br>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <select id="select" name="methods" class="form-control">
+            {% for m in path.method_set.all %}
+                <option id = {{ m.id }} class="{{ m.path_id }}" value="{{ m.name }}">{{ m.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <input type="text" class="form-control" value="{{ path.get_base_url }}" readonly>
+    <input type="text" class="form-control" value="{{ path.name }}" readonly>
+</div>
+<br>
+<div id="method_info">
+    {% include 'REST/method_info.html' %}
+</div>
+<br>
+<form action="path/{{ path.id }}/" method="post" style="display: inline;">
+    {% csrf_token %}
+    <input type="hidden" name="path_id" value="{{ path.id }}" />
+    <button type="submit" class="btn btn-primary float-right">
+        Tester
+    </button>
+</form>

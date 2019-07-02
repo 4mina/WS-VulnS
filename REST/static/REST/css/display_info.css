@@ -1,0 +1,77 @@
+#swagger-info{
+    padding: 50px;
+    color: #2b4c6d;
+}
+
+#swagger-info input:focus {
+    outline: none;
+}
+
+/* Collapse icon */
+
+[data-toggle="collapse"] .fa:before {
+    content: "\f068";
+}
+
+[data-toggle="collapse"].collapsed .fa:before {
+    content: "\f067";
+}
+
+/* Cards */
+
+#info-group .card {
+    border: 2px solid #f2f5f7;
+}
+
+#outputs-header, #inputs-header {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-bottom: 0px;
+    background-color: #f2f5f7;
+}
+
+
+/* Link button and span (Card header and table) */
+
+#info-group h2 .btn-link, #info-group .table tbody tr td .btn-link {
+    text-decoration: none !important;
+}
+
+#info-group h2 button span {
+    padding-left: 10px;
+}
+
+.table > tbody > tr {
+    border-bottom: 2px solid #f2f5f7;
+    border-top: 2px solid #f2f5f7;
+}
+
+.table > thead > tr {
+    border-bottom: 2px solid #2c3e50;
+    border-top: 2px solid #2c3e50;
+}
+
+/* Text Truncate */
+
+#param_table td.truncate {
+   max-width: 300px;
+}
+#param_table td.truncate span {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: inline-block;
+   white-space: nowrap;
+   max-width: 100%;
+}
+
+/* Modal */
+
+#info-group table tbody tr td .modal .modal-body {
+    font-family: monospace;
+    font-weight: 600;
+}
+
+#info-group table tbody tr td .modal .modal-body pre {
+    text-align: left;
+}
+

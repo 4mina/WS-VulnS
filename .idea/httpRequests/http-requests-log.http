@@ -1,0 +1,30 @@
+POST https://petstore.swagger.io/v2/user/createWithList
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+[{"User":{"id":"2","username":"string_3","firstName":"string_2","lastName":"string_1","email":"string_5","password":"string_1","phone":"string_4","userStatus":"2"}},{"User":{"id":"1","username":"string_4","firstName":"string_1","lastName":"string_3","email":"string_3","password":"string_4","phone":"string_4","userStatus":"1"}}]
+
+###
+
+POST https://petstore.swagger.io/v2/pet
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8" ?><Pet><id>2</id><Category><id>0</id><name>string_3</name></Category><name>doggie</name><photoUrls><photoUrl>string_5</photoUrl><photoUrl>string_4</photoUrl></photoUrls><tags><tag><id>2</id><name>string_4</name></tag><tag><id>0</id><name>string_3</name></tag></tags><status>available</status></Pet>
+
+<> 2019-02-16T030535.200.json
+
+###
+
+POST https://petstore.swagger.io/v2
+Accept: */*
+Cache-Control: no-cache
+
+<?xml version="1.0" encoding="UTF-8" ?><Pet><id>2</id><Category><id>0</id><name>string_3</name></Category><name>doggie</name><photoUrls><photoUrl>string_5</photoUrl><photoUrl>string_4</photoUrl></photoUrls><tags><tag><id>2</id><name>string_4</name></tag><tag><id>0</id><name>string_3</name></tag></tags><status>available</status></Pet>
+
+<> 2019-02-16T030434.405.xml
+
+###
+

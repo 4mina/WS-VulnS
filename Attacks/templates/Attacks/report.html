@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Rapport</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'WebService/libraries/bootstrap/bootstrap.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{%  static 'WebService/icons/favicon.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+    <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            background-color: #f2f3f8;
+        }
+        .card-header {
+            border-bottom-color: #f2f3f8;
+        }
+        #report-header, #attacks-report {
+            /*background-color: white;*/
+            box-shadow: 0px 1px 15px 1px rgba(69,65,78,0.1);
+            /*padding: 15px;*/
+
+        }
+        #logo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 25px;
+            padding-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+<img id="logo" src="{% static 'WebService/logos/logo_3.png' %}" width="300" alt="WS-VulnS">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="report-header" class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-6" style="padding-left: 40px; padding-top: 40px">
+                            <p class="card-text">
+                            <h5><span class="text-danger font-weight-bold">{{ nb_tests }}</span> test{{ nb_tests|pluralize }} effectué{{ nb_tests|pluralize }}</h5>
+                            <h5><span class="text-danger font-weight-bold">{{ nb_vulnerabilities }}</span> vulnérabilité{{ nb_vulnerabilities|pluralize }} détectée{{ nb_vulnerabilities|pluralize }}</h5>
+                            <h5><span class="text-danger font-weight-bold">{{ nb_sent_attacks }}</span> requête{{ nb_sent_attacks|pluralize }} malicieuses{{ nb_sent_attacks|pluralize }} envoyée{{ nb_sent_attacks|pluralize }}</h5>
+                            <h5><span class="text-danger font-weight-bold">{{ nb_valid_requests }}</span> requête{{ nb_valid_requests|pluralize }} valide{{ nb_valid_requests|pluralize }} envoyée{{ nb_valid_requests|pluralize }}</h5>
+                            <h5><span class="text-danger font-weight-bold">{{ nb_total_requests }}</span> requête{{ nb_total_requests|pluralize }} envoyée{{ nb_total_requests|pluralize }} au total</h5>
+                            <h5>Web Service testé : <span class="text-danger font-weight-bold">{{ web_service_name }}</span></h5>
+                            {% if ws_type == 'soap' %}
+                                <h5>Opération testée : <span class="text-danger font-weight-bold">{{ operation_name }}</span></h5>
+                            {% else %}
+                                <h5>Ressource testée : <span class="text-danger font-weight-bold">{{ operation_name }}</span></h5>
+                            {% endif %}
+                            <h5>Temps écoulé : <span class="text-danger font-weight-bold">{{ execution_time }} secondes</span></h5>
+                            </p>
+                        </div>
+                        <div class="col-md-6" style="padding-right: 40px; padding-top: 0px">
+                            <div>
+                                {{ report|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="attacks-report" class="card">
+                <h5 class="card-header bg-light font-weight-bold">Attaques testées</h5>
+                <div class="card-body">
+                    {% if selected_attacks.dos|length > 0 %}
+                        <h5 class="card-title font-weight-bold text-success">Déni de service (DoS)</h5>
+                        <p class="card-text">
+                            <strong>Type d'attaques testées :</strong>
+                            {% for type in selected_attacks.dos %}
+                                {% if type == 'xmlb' %}
+                                    {% if selected_attacks.dos|length == 1 or selected_attacks.dos|length == forloop.counter %}
+                                        Bombe XML.
+                                    {% else %}
+                                        Bombe XML,
+                                    {% endif %}
+                                {% elif type == 'overpayload' %}
+                                    {% if selected_attacks.dos|length == 1 or selected_attacks.dos|length == forloop.counter %}
+                                        Oversized Payload.
+                                    {% else %}
+                                        Oversized Payload,
+                                    {% endif %}
+                                {% elif type == 'overxml' %}
+                                    {% if selected_attacks.dos|length == 1 or selected_attacks.dos|length == forloop.counter %}
+                                        Oversized XML.
+                                    {% else %}
+                                        Oversized XML,
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <br>
+                            <strong>Nombre de vulnérabilités trouvées :</strong>
+                            {{ dos.nb_success_attacks }}.
+                            <br>
+                            <strong>Nombre d'attaques envoyées :</strong>
+                            {{ dos.nb_sent_attacks }}.
+                            <br>
+                            <strong>Nombre de requêtes valides envoyées :</strong>
+                            {{ dos.nb_valid_requests }}.
+                            <br>
+                        </p>
+                    {% endif %}
+
+                    {% if 'xmli' in selected_attacks.injections or 'sqli' in selected_attacks.injections %}
+                        <h5 class="card-title font-weight-bold text-success">Injections</h5>
+                    {% endif %}
+
+                    {% if 'xmli' in selected_attacks.injections %}
+                        <h6 class="card-title font-weight-bold text-success">Injection XML</h6>
+                        <strong>Type d'injections testées : </strong>Malformed, Replicating, XPath.
+                        <br>
+                        {% if xmli.nb_success_attacks > 0 %}
+                            <strong>Nombre et type de vulnérabilités trouvées :</strong>
+                            <ul style="margin-bottom: 0px">
+                                {% for key, value in xmli.vulns_found.items %}
+                                    <li>{{ key }} : {{ value }}.</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <strong>Nombre total de vulnérabilités trouvées :</strong>
+                        {{ xmli.nb_success_attacks }}.
+                        <br>
+                        <strong>Nombre d'attaques envoyées :</strong>
+                        {{ xmli.nb_sent_attacks }}.
+                        <br>
+                        <strong>Nombre de requêtes valides envoyées :</strong>
+                        {{ xmli.nb_valid_requests }}.
+                        <br>
+                        {% if 'sqli' in selected_attacks.injections %}
+                            <br>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if 'sqli' in selected_attacks.injections %}
+                        <h6 class="card-title font-weight-bold text-success">Injection SQL</h6>
+                        <strong>Type d'injections testées : </strong>Tautology, Union, Piggy Backed, Illegal Logically Incorrect Queries.
+                        <br>
+                        {% if xmli.nb_success_attacks > 0 %}
+                            <strong>Nombre et type de vulnérabilités trouvées :</strong>
+                            <ul style="margin-bottom: 0px">
+                                {% for key, value in sqli.vulns_found.items %}
+                                    {% if key == 'Taut' %}
+                                        <li>Tautology : {{ value }}.</li>
+                                    {% elif key == 'Union' %}
+                                        <li>Union : {{ value }}.</li>
+                                    {% elif key == 'PiggyB' %}
+                                        <li>Piggy Backed : {{ value }}.</li>
+                                    {% elif key == 'IncQ' %}
+                                        <li>Illegal Logically Incorrect Queries : {{ value }}.</li>
+                                    {% else %}
+                                        <li>Tautology / Union / Piggy Backed : {{ value }}.</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <strong>Nombre total de vulnérabilités trouvées :</strong>
+                        {{ sqli.nb_success_attacks }}.
+                        <br>
+                        <strong>Nombre d'attaques envoyées :</strong>
+                        {{ sqli.nb_sent_attacks }}.
+                        <br>
+                        <strong>Nombre de requêtes valides envoyées :</strong>
+                        {{ sqli.nb_valid_requests }}.
+                        <br>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="col-md-12 text-right" style="padding-right: 0px">
+    <a class="btn btn-primary " href="log/{{ log_filename }}" target="_blank" style="margin-right: 10px">Télécharger le fichier log</a>
+    <a class="btn btn-primary " href="{{ report_filename }}" target="_blank">Télécharger le rapport</a>
+    </div>
+    <br><br>
+</div>
+</body>
+
+</html>

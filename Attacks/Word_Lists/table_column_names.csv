@@ -1,0 +1,8 @@
+"""users""","""userid""","""username""","""userpasswd"""
+"""customers""","""customerid""","""customername""","""orders"""
+"""employees""","""employeeid""","""salary""","""job"""
+"""orders""","""orderid""","""customerid""","""orderdate""","""status"""
+"""products""","""productid""","""price"""
+"""members""","""memberid""","""name""","""group"""
+"""credit-card""","""credit_card_number""","""expiredate""","""limit"""
+"""account""","""accountnumber""","""category"""

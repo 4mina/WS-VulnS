@@ -1,0 +1,46 @@
+{% load widget_tweaks %}
+{% csrf_token %}
+{% for hidden_field in form.hidden_fields %}
+    {{ hidden_field }}
+{% endfor %}
+{% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+{% endif %}
+{% for field in form.visible_fields %}
+    <div class="form-group" id="{{ field.name }}">
+        {% if field.name == "attack_selected" or field.name == "attack_type"%}
+            {{ field.label_tag|cut:":" }}
+        {% else %}
+            {{ field.label_tag }}
+        {% endif %}
+        {% if form.is_bound %}
+            {% if field.errors %}
+                {% render_field field class="form-control is-invalid" %}
+                {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% render_field field class="form-control is-valid" %}
+            {% endif %}
+        {% else %}
+            {% comment %}Add a line between num_entities and payload field so that the user will understand that he has to
+            specify one of them (automatic generation of BIL or giving the payload){% endcomment %}
+            {% if field.name in "xmlbbil_payload, tauto_patterns, union_patterns, piggyb_patterns, incq_patterns, number_characters, number_patterns"%}
+                {% render_field field class="form-control" %}
+                <hr/>
+            {% else %}
+                {% render_field field class="form-control" %}
+            {% endif %}
+        {% endif %}
+
+        {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+    </div>
+{% endfor %}

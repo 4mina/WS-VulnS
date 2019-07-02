@@ -1,0 +1,23 @@
+<h4>{{ endpoint.name }}</h4>
+<br>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text bg-white">{{ endpoint.name }}</span>
+    </div>
+    <input type="text" class="form-control" value="{{ endpoint.url }}" readonly>
+</div>
+<br>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Informations</h5>
+        <p class="card-text">
+            Port du service <strong>{{ endpoint.web_service.name }}</strong>.
+            <br>
+            Version SOAP supportée <strong>{{ endpoint.soap_version }}</strong>.
+        </p>
+    </div>
+    <br>
+    <div style="text-align: right; padding: 0 20px 20px 0">
+        <a href="{{ endpoint.url }}" class="btn btn-primary">Accéder au port</a>
+    </div>
+</div>

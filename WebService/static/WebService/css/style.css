@@ -1,0 +1,34 @@
+.center {
+    background-color: white;
+    margin: 5% auto;
+    width: 70%;
+    box-shadow: 1px 1px 1px 1px silver;
+    padding: 5px;
+}
+
+
+#attack_selected{
+    position: relative;
+}
+#attack_selected label{
+    font-size: x-large;
+    font-weight: bold;
+    position: absolute;
+    padding-left: 5%;
+}
+
+#attack_selected input {
+    width: 4%;
+    height: 35px;
+
+}
+
+#attack_type label{
+    font-size: medium;
+    font-weight: bold;
+    position: absolute;
+}
+
+#attack_type input {
+    width: 0;
+}

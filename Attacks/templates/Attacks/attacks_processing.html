@@ -1,0 +1,87 @@
+{% extends 'WebService/base_app_index_dark.html' %}
+{% block title %}Envoi des attaques{% endblock %}
+{% load staticfiles %}
+{% block staticfiles %}
+    <script type="text/javascript" src="{% static 'Attacks/js/update_progress_bars.js' %}"></script>
+    <style>
+        html
+        {
+            box-sizing: border-box;
+            overflow: -moz-scrollbars-vertical;
+            overflow-y: scroll;
+        }
+        *,
+        *:before,
+        *:after
+        {
+            box-sizing: inherit;
+        }
+
+        body {
+            margin:0;
+            background: #f2f3f8;
+        }
+        .swagger-ui .tab{
+            width: 750px;
+        }
+        .swagger-ui .markdown {
+            width : 750px;
+        }
+        .swagger-ui .highlight-code {
+            width: 750px;
+        }
+        .swagger-ui .headerline {
+            width: 750px;
+        }
+        .swagger-ui .col .response-col_status{
+            width: 103.2px;
+        }
+        .page-content #content {
+            background-color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <button id = "start_tests_btn" type="button" class="btn btn-success" onclick="get_tasks();">
+        <i class="fas fa-play-circle"></i> Lancer les tests
+    </button>
+    <br>
+    <br>
+    <h5>Tests de vulnérabilités des attaques choisies pour {% if ws_type == "rest" %} la ressource {% else %} l'opération {% endif %}<b>{{ operation_name }}</b></h5>
+    <br>
+    {# Progress bar for every selected attack#}
+    {% for key, value in selected_attacks.items %}
+        {% if key == 'Inj' %}
+            {% for attack in value %}
+                <h6><b>{{ attack|upper }}</b></h6>
+                <div class="progress" style="height: 20px;">
+                    <div id="pgrbar-{{ attack }}-static" class="progress-bar bg-success" role="progressbar" style="width:0%; background-color: #6f7d7e;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div id="pgrbar-{{ attack }}-dynamic" class="progress-bar bg-success" role="progressbar" style="width:0%; background-color: #6f7d7e;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p id="message-{{ attack }}"></p>
+                <br>
+            {% endfor %}
+        {% elif key == 'Dos' %}
+            {% for attack in value %}
+                <b>{{ attack|upper }} </b>
+            {% endfor %}
+            {% if value %}
+                <div class="progress" style="height: 20px;">
+                    <div id="pgrbar-dos" class="progress-bar bg-success" role="progressbar" style="width:0%; background-color: #6f7d7e;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p id="message-dos"></p>
+                <br>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    <form role="form" action="" method="post" target="_blank" style="display: inline;">
+        {% csrf_token %}
+        <button id="show-report" type="submit" class="btn btn-primary float-right" disabled>
+            <i class="fas fa-file-chart-line"></i> Afficher le rapport de test
+        </button>
+    </form>
+    <br>
+    <br>
+{% endblock %}

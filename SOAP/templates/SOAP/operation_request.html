@@ -1,0 +1,19 @@
+{% load tags_extra %}
+
+<br>
+<div class="card text-center">
+    <div class="card-body">
+        <div class="tab-content">
+
+            <form action="operation_request/{{ operation.id }}/" method="post" id="inputs-form">
+                {% if operation.parameters.input %}
+                    {% include 'SOAP/form_template.html' %}
+                {% else %}
+                    Cette opération n'a aucun paramètre en entrée.
+                    <br><br>
+                {% endif %}
+                <input type="submit" class="btn btn-primary" value="Envoyer">
+            </form>
+        </div>
+    </div>
+</div>

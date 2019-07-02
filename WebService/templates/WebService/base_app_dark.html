@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'WebService/libraries/bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'WebService/css/base_app_dark.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{%  static 'WebService/icons/favicon.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'WebService/js/sidebar.js' %}"></script>
+
+    {% block staticfiles %}
+    {% endblock %}
+</head>
+
+<body>
+<nav id="topbar" class="navbar navbar-expand-sm navbar-dark bg-primary">
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item {% block home_is_active %}{% endblock %}">
+                <a class="nav-link" href="{% url 'WebService:index' %}">
+                    <i class="fas fa-home fa-2x"></i>
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item {% block documentation_is_active %}{% endblock %}">
+                <a class="nav-link" href="{% url 'WebService:documentation' %}">
+                    <i class="fas fa-book fa-2x"></i>
+                </a>
+            </li>
+            <li class="nav-item {% block about_is_active %}{% endblock %}">
+                <a class="nav-link" href="{% url 'WebService:about' %}">
+                    <i class="fas fa-info fa-2x"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="page-wrapper">
+    <a id="show-sidebar">
+        <i class="fa fa-bars fa-2x"></i>
+    </a>
+    <nav id="sidebar" class="sidebar-wrapper navbar-dark">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <a href="#">
+                    <img src="{% static 'SOAP/logos/logo_3.png' %}" width="150">
+                </a>
+                <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                <ul>
+                    <li>
+                        <a href="{% url 'WebService:index' %}">
+                            <i class="fas fa-home"></i>
+                            <span>Accueil</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% if ws_type == 'rest' %} {% url 'REST:rest_client' ws_id%} {% elif ws_type == 'soap' %} {% url 'SOAP:soap_client' ws_id%} {% else %} # {% endif %}">
+                            <i class="fas fa-cog"></i>
+                            <span>Tests fonctionnels</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% if ws_type == 'rest' %} {% url 'REST:view_swagger' ws_id%} {% elif ws_type == 'soap' %} {% url 'SOAP:view_wsdl' ws_id%} {% else %} # {% endif %}">
+                            <i class="fas fa-bug"></i>
+                            <span>Tests de vulnérabilités</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'WebService:documentation'%}">
+                            <i class="fas fa-book"></i>
+                            <span>Documentation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'WebService:about'%}">
+                            <i class="fas fa-info"></i>
+                            <span>A propos</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <div id="content" class="center">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </main>
+</div>
+</body>
+
+</html>

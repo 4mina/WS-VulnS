@@ -1,0 +1,53 @@
+{% extends 'WebService/base_app_dark.html' %}
+
+{% block title %}A propos{% endblock %}
+{% load static %}
+{% block staticfiles %}
+    <style>
+        #logo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 25px;
+            padding-top: 25px;
+        }
+    </style>
+{% endblock %}
+{% block about_is_active %}active{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="card col-md-12">
+            <div class="card-body">
+                <img id="logo" src="{% static 'WebService/logos/logo_2.png' %}" width="300" alt="WS-VulnS">
+                <p align="justify">
+                    <strong>WS-VulnS</strong> est un outil boîte noire de test de vulnérabilités pour les Web Services SOAP et REST, réalisé dans
+                    le cadre d'un projet de fin d'études pour l'obtention du diplôme d'Ingénieur d'Etat en Informatique (Option SIQ) à l'Ecole
+                    Nationale Supérieure d'Informatique (ESI). Il a été développé par AIT HABOUCHE Manele et BALI Amina et encadré par M. AMROUCHE
+                    Hakim au cours de l'année universitaire 2018 - 2019.
+                    <br><br>
+                    WS-VulnS détecte les vulnérabilités dans les Web Services avant même leur déploiement et traite les deux familles d'attaques
+                    les plus répandues et celles qui ont le plus d'impact à savoir : le déni de service (XML Bomb, Oversized XML / Payload) et
+                    les injections (SQLi, XMLi).
+                    <br>
+                    La détection des attaques de type déni de service se fait en comparant le temps de réponse moyen calculé avant l'attaque à celui
+                    des requêtes simulant les clients légitimes pendant et après l'attaque, tout en prenant en considération les codes HTTP retournés.
+                    Quant aux injections, leur détection se fait en deux phases : la première, statique, adopte l'approche « Error Pattern Matching
+                    Approach » et fait appel à l'algorithme « Aho-Corasick » pour vérifier l'existence de modèles d'erreur dans les réponses retournées
+                    en prenant aussi en considération les codes HTTP retournés. La deuxième, dynamique, n'est exécutée que si la première n'aboutit pas
+                    à un résultat concluant, elle adopte l'approche « Similarity Approach » et utilise un algorithme de Clustering pour rassembler les
+                    réponses similaires et détecter le ou les Clusters traduisant de potentielles vulnérabilités. Un rapport mettant en évidence les
+                    vulnérabilités détectées est finalement affiché.
+                    <br><br>
+                    L'ensemble des tests effectués sur notre outil montrent qu'il donne en général de bons résultats. L'évaluation de WS-VulnS s'est
+                    faite en deux temps, la première étape nous a d'abord permis de déterminer les valeurs par défaut des paramètres intervenant dans
+                    la détection des attaques et de garder les méthodes qui donnaient les meilleurs pourcentages de détection. Il s'agit de la première
+                    méthode de prétraitement et de l'algorithme CAH. Nous avons ensuite comparé notre outil à SOAP UI, qui est l’un des outils les plus
+                    populaires sur le marché, les deux ont donné des résultats assez similaires avec toutefois un taux de faux négatifs inférieur pour
+                    WS-VulnS.
+                </p>
+            </div>
+            <br>
+            <small><p align="center" class="text-muted">&copy; 2019 WS-VulnS AIT HABOUCHE & BALI<p></small>
+        </div>
+    </div>
+{% endblock%}

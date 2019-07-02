@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">{{ restwebservice.name | title }}</h3>
+        <h5 class="card-subtitle mb-2 text-muted">{{ restwebservice.base_url }}</h5>
+        <p class="card-text">{{ restwebservice.documentation }}</p>
+        <br>
+        <div class="accordion" id="info-group">
+            <div class="card">
+                <div class="card-header" id="inputs-header">
+                    <h2>
+                        <button class="btn btn-link text-primary collapsed" type="button" data-toggle="collapse" data-target="#inputs-body" aria-expanded="true" aria-controls="inputs-body">
+                            <i class="fa" aria-hidden="true"></i>
+                            <span><strong>Ressources</strong></span>
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="inputs-body" class="collapse" aria-labelledby="inputs-header" data-parent="#info-group">
+                    <ul class="list-group">
+                        {% for path_name in restwebservice.paths %}
+                            <li class="list-group-item">{{ path_name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

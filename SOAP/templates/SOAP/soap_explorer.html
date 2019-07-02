@@ -1,0 +1,82 @@
+{% extends 'WebService/base_app_dark.html' %}
+
+{% block title %}Explorateur SOAP{% endblock %}
+
+{% block staticfiles %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'SOAP/libraries/metronic_treeview/css/jquery_jstree.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'SOAP/libraries/metronic_treeview/css/metronic_simple_line_icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'SOAP/css/treeview.css' %}">
+    <script type="text/javascript" src="{% static 'SOAP/libraries/metronic_treeview/js/jquery_jstree.js' %}"></script>
+    <script type="text/javascript" src="{% static 'SOAP/js/treeview.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 bg-white">
+                <div id="wsdl-explorer-tree">
+                    <ul>
+                        <li data-type="soap-web-service" id="web-service-{{ data.pk }}" data-jstree='{"opened": true}'>
+                            {{ data.name }}
+                            <ul>
+                                {% for endpoint in data.endpoint_set.all %}
+                                    <li data-type="soap-endpoint" id="endpoint-{{ endpoint.pk }}">
+                                        {{ endpoint.name }}
+                                        <ul>
+                                            {% for operation in endpoint.operation_set.all %}
+                                                <li data-type="soap-operation" id="operation-{{ operation.pk }}">
+                                                    {{ operation.name }}
+                                                    <ul>
+                                                        {% for key, value in operation.parameters.items %}
+                                                            <li>
+                                                                {% if key == 'input' %}
+                                                                    Entrées
+                                                                    <ul>
+                                                                        {% for name, info in value.items %}
+                                                                            {% if info.type.Enumeration %}
+                                                                                <li>{{ name }} : Enumeration</li>
+                                                                            {% elif info.type.Complex %}
+                                                                                <li>{{ name }} : Complex</li>
+                                                                            {% else %}
+                                                                                <li>{{ name }} : {{ info.type }}</li>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                {% elif key == 'output' %}
+                                                                    Sorties
+                                                                    <ul>
+                                                                        {% for name, info in value.items %}
+                                                                            {% if info.type.Enumeration %}
+                                                                                <li>{{ name }} : Enumeration</li>
+                                                                            {% elif info.type.Complex %}
+                                                                                <li>{{ name }} : Complex</li>
+                                                                            {% else %}
+                                                                                <li>{{ name }} : {{ info.type }}</li>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                {% endif %}
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-7 bg-white">
+                <div id="wsdl-info">
+                    {% include 'SOAP/web_service_info.html' %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

