@@ -22,7 +22,7 @@ flex==6.14.0
 greenlet==0.4.15	
 html5lib==1.0.1	
 libmagic==1.0	
-lxml==4.3.3	
+lxml==4.6.2	
 more-itertools==7.0.0	
 nltk==3.4	
 numpy==1.14.2		
