@@ -2,7 +2,7 @@ Django==2.1.9
 Faker==1.0.4	
 Pillow==5.3.0	
 PyPDF2==1.26.0	
-PyYAML==5.1		
+PyYAML==5.4		
 ahocorapy==1.5.1	
 celery==4.2.1	
 certifi==2017.7.27.1	
